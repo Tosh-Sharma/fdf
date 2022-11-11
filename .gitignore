@@ -1,0 +1,10 @@
+fdf
+libft/libft.a
+*.o
+*.gch
+*.a
+.vscode
+.out
+#TODO: Find out if this is to be commited or nah
+minilibx_macos/
+test_maps/
