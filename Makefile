@@ -62,6 +62,9 @@ LIBFT_SRC_FILES = ft_isalpha.c \
 
 LIB_SRC = $(addprefix libft/, $(LIBFT_SRC_FILES))
 SRCS = 	fdf.c \
+		parser/traverse_file.c \
+		parser/convert_input.c \
+		utils/utils_1.c \
 		$(LIB_SRC)
 
 OBJS = ${SRCS:.c=.o}
