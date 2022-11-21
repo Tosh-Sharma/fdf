@@ -64,6 +64,10 @@ LIB_SRC = $(addprefix libft/, $(LIBFT_SRC_FILES))
 SRCS = 	fdf.c \
 		parser/traverse_file.c \
 		parser/convert_input.c \
+		parser/get_coordinates.c \
+		drawing/create_mesh.c \
+		drawing/draw_stuff.c \
+		drawing/bresenham.c \
 		utils/utils_1.c \
 		$(LIB_SRC)
 
