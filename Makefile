@@ -1,6 +1,6 @@
 NAME = fdf
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -lm
 LIBFT_SRC_FILES = ft_isalpha.c \
 		ft_isdigit.c \
 		ft_isalnum.c \

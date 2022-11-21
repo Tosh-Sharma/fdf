@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:12:49 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/21 17:26:03 by tsharma          ###   ########.fr       */
+/*   Updated: 2022/11/21 20:13:10 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	draw_stuff(char *title, t_input *input)
 	t_point		**map;
 
 	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1280, 720, title);
-	img.img = mlx_new_image(mlx, 1280, 720);
+	mlx_win = mlx_new_window(mlx, WIN_WIDTH, WIN_HEIGHT, title);
+	img.img = mlx_new_image(mlx, WIN_WIDTH, WIN_HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
 	map = get_updated_co_ordinates(input);

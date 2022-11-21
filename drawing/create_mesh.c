@@ -6,13 +6,34 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:39:07 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/21 17:57:38 by tsharma          ###   ########.fr       */
+/*   Updated: 2022/11/21 21:09:16 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-// put_pixel(&img, x * 15, y * 15, 0x00FF0000);
+void	create_mesh2(t_point **map, t_input *input, t_data *img)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < input->row_count)
+	{
+		j = -1;
+		while (++j < input->column_count)
+		{
+			map[i][j].x = map[i][j].x + (WIN_WIDTH / 10);
+			map[i][j].y = map[i][j].y + (WIN_HEIGHT / 10);
+			printf("x=%f, y=%f \n", map[i][j].x, map[i][j].y);
+			if (input->map[i][j] > 0)
+				put_pixel(img, map[i][j].x * 5, map[i][j].y * 5, 0x00FF0000);
+			else
+				put_pixel(img, map[i][j].x * 5, map[i][j].y * 5, 0x00FFFFFF);
+		}
+	}
+}
+
 void	create_mesh(t_point **map, t_input *input, t_data *img)
 {
 	int	i;
@@ -24,12 +45,10 @@ void	create_mesh(t_point **map, t_input *input, t_data *img)
 		j = -1;
 		while (++j < input->column_count)
 		{
-			map[i][j].x = map[i][j].x * cos(PI) - map[i][j].y * sin(PI);
-			map[i][j].y = map[i][j].x * sin(PI) + map[i][j].y * cos(PI);
-			if (input->map[i][j] > 0)
-				put_pixel(img, map[i][j].x * 10, map[i][j].y * 10, 0x00FF0000);
-			else
-				put_pixel(img, map[i][j].x * 10, map[i][j].y * 10, 0x00FFFFFF);
+			if (i != (input->row_count - 1))
+				draw_line(map[i][j], map[i + 1][j], input, img);
+			if (j != (input->column_count - 1))
+				draw_line(map[i][j], map[i][j + 1], input, img);
 		}
 	}
 }

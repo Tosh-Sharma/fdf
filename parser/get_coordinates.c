@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:33:38 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/21 17:21:46 by tsharma          ###   ########.fr       */
+/*   Updated: 2022/11/21 20:08:45 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ t_point	**get_updated_co_ordinates(t_input *input)
 		{
 			map[i][j].x = (j - input->map[i][j]) * cos(PI / 6);
 			map[i][j].y = i + (j + input->map[i][j]) * sin(PI / 6);
-			ft_printf("Old (x, y, z) is %d, %d, %d\n", i, j, input->map[i][j]);
-			ft_printf("New (x, y) is %f, %f\n", map[i][j].x, map[i][j].y);
+			// printf("Old (x, y, z) is %d, %d, %d\n", i, j, input->map[i][j]);
+			// printf("New (x, y) is %f, %f\n", map[i][j].x, map[i][j].y);
 		}
 	}
 	return (map);
