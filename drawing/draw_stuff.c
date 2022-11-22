@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:12:49 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/21 20:13:10 by tsharma          ###   ########.fr       */
+/*   Updated: 2022/11/22 17:17:26 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@
 void	put_pixel(t_data *data, int x, int y, int color)
 {
 	char	*dst;
-
+	// TODO: Move the code for shifting the origin away from here.
+	x = x + (WIN_WIDTH / 10);
+	y = y + (WIN_HEIGHT / 10);
+	x = x + (WIN_WIDTH / 10);
+	y = y + (WIN_HEIGHT / 10);
 	dst = data->addr + (y * data->line_length
 			+ x * (data->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
