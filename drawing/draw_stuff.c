@@ -6,44 +6,75 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:12:49 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/24 01:11:11 by tsharma          ###   ########.fr       */
+/*   Updated: 2022/11/24 21:40:15 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
+void	free_data(t_data *img)
+{
+	int	i;
+
+	mlx_destroy_image(img->mlx, img->img);
+	mlx_destroy_window(img->mlx, img->mlx_win);
+	free(img->img);
+	free(img->mlx_win);
+	free(img->mlx);
+	i = 0;
+	while (i < img->input->row_count)
+	{
+		free(img->input->map[i]);
+		i++;
+	}
+	free(img->input->map);
+}
+
 // put_pixel(&img, x * 15, y * 15, 0x00FF0000);
 void	put_pixel(t_data *data, int x, int y, int color)
 {
 	char	*dst;
-	// TODO: Move the code for shifting the origin away from here.
-	x = x + (WIN_WIDTH / 10);
-	y = y + (WIN_HEIGHT / 10);
-	x = x + (WIN_WIDTH / 10);
-	y = y + (WIN_HEIGHT / 10);
+
 	dst = data->addr + (y * data->line_length
 			+ x * (data->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
 
+//	We use the keypad to handle inputs
+//	0	1	2	3	4	5	6	7	8	9
+//	48	49	50	51	52	53	54	55	56	57
 int	key_hook(int keycode, t_data *img)
 {
 	t_point	**map;
 
-	(void)img;
 	if (keycode == 53)
-		exit(1);
-	if (keycode == 2)
 	{
-		map = get_updated_co_ordinates(img->input);
-		create_mesh(map, img);
-		// We need put image to window to push the image to the window.
-		mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);
+		free_data(img);
+		system("leaks fdf");
+		exit(1);
 	}
+	if (keycode == 48)
+		img->params.zoom -= 0.5;
+	else if (keycode == 53)
+		img->params.zoom += 0.5;
+	else if (keycode == 56)
+		img->params.beta += (M_PI / 18);
+	else if (keycode == 50)
+		img->params.beta -= (M_PI / 18);
+	else if (keycode == 52)
+		img->params.alpha -= (M_PI / 18);
+	else if (keycode == 54)
+		img->params.alpha += (M_PI / 18);
+	else if (keycode == 57)
+		img->params.gamma += (M_PI / 18);
+	else if (keycode == 49)
+		img->params.gamma -= (M_PI / 18);
+	map = get_updated_co_ordinates(img);
+	// TODO: Destroy the image here before rewriting it.
+	create_mesh(map, img);
 	return (0);
 }
 
-// TODO: Handle keyboard inputs like ESC to quit.
 // TODO: Display text on screen.
 // Handle rotation and other stuff.
 void	draw_stuff(char *title, t_input *input)
@@ -57,9 +88,12 @@ void	draw_stuff(char *title, t_input *input)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
 	img.input = input;
-	map = get_updated_co_ordinates(img.input);
+	img.params.zoom = 7;
+	img.params.alpha = 0.0;
+	img.params.beta = 45.0;
+	img.params.gamma = 35.264;
+	map = get_updated_co_ordinates(&img);
 	create_mesh(map, &img);
 	mlx_key_hook(img.mlx_win, &key_hook, &img);
-	mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
 	mlx_loop(img.mlx);
 }

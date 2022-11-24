@@ -62,6 +62,7 @@ LIBFT_SRC_FILES = ft_isalpha.c \
 
 LIB_SRC = $(addprefix libft/, $(LIBFT_SRC_FILES))
 SRCS = 	fdf.c \
+		trignometry.c \
 		parser/traverse_file.c \
 		parser/convert_input.c \
 		parser/get_coordinates.c \

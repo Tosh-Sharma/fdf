@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_mesh.c                                      :+:      :+:    :+:   */
+/*   trignometry.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 16:39:07 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/24 21:11:56 by tsharma          ###   ########.fr       */
+/*   Created: 2022/11/24 22:12:41 by tsharma           #+#    #+#             */
+/*   Updated: 2022/11/24 22:28:07 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-void	create_mesh(t_point **map, t_data *img)
+void	get_angles(t_params params, t_trig *z)
 {
-	int	i;
-	int	j;
-
-	j = -1;
-	while (++j < img->input->row_count)
-	{
-		i = -1;
-		while (++i < img->input->column_count)
-		{
-			if (j != (img->input->row_count - 1))
-				draw_line(map[j][i], map[j + 1][i], img);
-			if (i != (img->input->column_count - 1))
-				draw_line(map[j][i], map[j][i + 1], img);
-		}
-	}
-	mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);
+	z->cos_a = cos(params.alpha);
+	z->cos_b = cos(params.beta);
+	z->cos_g = cos(params.gamma);
+	z->sin_a = sin(params.alpha);
+	z->sin_b = sin(params.beta);
+	z->sin_g = sin(params.gamma);
 }
