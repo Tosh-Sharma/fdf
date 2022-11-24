@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:39:07 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/21 21:09:16 by tsharma          ###   ########.fr       */
+/*   Updated: 2022/11/23 22:56:16 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,21 @@ void	create_mesh2(t_point **map, t_input *input, t_data *img)
 	}
 }
 
-void	create_mesh(t_point **map, t_input *input, t_data *img)
+void	create_mesh(t_point **map, t_data *img)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (++i < input->row_count)
+	while (++i < img->input->row_count)
 	{
 		j = -1;
-		while (++j < input->column_count)
+		while (++j < img->input->column_count)
 		{
-			if (i != (input->row_count - 1))
-				draw_line(map[i][j], map[i + 1][j], input, img);
-			if (j != (input->column_count - 1))
-				draw_line(map[i][j], map[i][j + 1], input, img);
+			if (i != (img->input->row_count - 1))
+				draw_line(map[i][j], map[i + 1][j], img->input, img);
+			if (j != (img->input->column_count - 1))
+				draw_line(map[i][j], map[i][j + 1], img->input, img);
 		}
 	}
 }
