@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:04:40 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/24 22:28:20 by tsharma          ###   ########.fr       */
+/*   Updated: 2022/11/26 02:29:34 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ typedef struct s_params {
 	int		zoom;
 }	t_params;
 
+typedef struct s_2d_point {
+	double	x;
+	double	y;
+}	t_point;
+
 typedef struct s_data {
 	void		*img;
 	char		*addr;
@@ -45,12 +50,8 @@ typedef struct s_data {
 	void		*mlx;
 	void		*mlx_win;
 	t_params	params;
+	t_point		**map;
 }	t_data;
-
-typedef struct s_2d_point {
-	double	x;
-	double	y;
-}	t_point;
 
 typedef struct s_line {
 	double	delta_x;
@@ -72,13 +73,13 @@ typedef struct s_trig {
 /*	Parsing functions	*/
 void	traverse_file(char *path, t_input *input);
 void	convert_input(int file_fd, t_input *input);
-t_point	**get_updated_co_ordinates(t_data *img);
-void	get_angles(t_params params, t_trig *z);
+void	get_updated_co_ordinates(t_data *img);
+void	assign_angles(t_params params, t_trig *z);
 
 /*	Drawing functions	*/
 void	draw_stuff(char *title, t_input *input);
 void	put_pixel(t_data *data, int x, int y, int color);
-void	create_mesh(t_point **map, t_data *img);
+void	create_mesh(t_data *img);
 void	draw_line(t_point p1, t_point p2, t_data *img);
 
 /*	Error functions		*/

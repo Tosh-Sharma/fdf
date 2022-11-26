@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 14:16:26 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/12 16:37:03 by tsharma          ###   ########.fr       */
+/*   Updated: 2022/11/26 02:40:59 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	get_number_of_rows(char *input)
 		if (line == NULL)
 			break ;
 		else
+		{
+			free(line);
 			n++;
+		}
 	}
 	close(file_fd);
 	if (n == 0)
