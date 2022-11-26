@@ -67,7 +67,6 @@ SRCS = 	fdf.c \
 		parser/get_coordinates.c \
 		drawing/create_mesh.c \
 		drawing/draw_stuff.c \
-		drawing/bresenham.c \
 		utils/utils_1.c \
 		$(LIB_SRC)
 

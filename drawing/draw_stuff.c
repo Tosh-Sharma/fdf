@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:12:49 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/26 21:45:56 by tsharma          ###   ########.fr       */
+/*   Updated: 2022/11/26 23:31:01 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 void	zoom_zoom_zoom(int keycode, t_data *img)
 {
 	if (keycode == 82)
-		img->params.zoom -= 50 / (img->input->column_count
-				+ img->input->row_count);
+		img->params.zoom -= 1;
 	else if (keycode == 87)
-		img->params.zoom += 50 / (img->input->column_count
-				+ img->input->row_count);
+		img->params.zoom += 1;
 }
 
 // 124 is right. 123 is left.
@@ -65,11 +63,13 @@ int	key_hook(int keycode, t_data *img)
 
 void	initialize_params(t_data *img)
 {
-	img->params.zoom = 200 / (img->input->row_count * img->input->column_count);
+	// printf("Zoom is set to %d\n",
+	// 	200 / (img->input->row_count * img->input->column_count));
+	img->params.zoom = 5;
 	img->params.alpha = 0.0;
 	img->params.beta = 0.0;
 	img->params.gamma = 0.0;
-	img->params.zero_x = WIN_WIDTH / 2;
+	img->params.zero_x = WIN_WIDTH / 10;
 	img->params.zero_y = WIN_HEIGHT / 10;
 }
 
