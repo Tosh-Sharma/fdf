@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:04:40 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/26 02:29:34 by tsharma          ###   ########.fr       */
+/*   Updated: 2022/11/26 19:35:29 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_params {
 	double	beta;
 	double	gamma;
 	int		zoom;
+	double	zero_x;
+	double	zero_y;
 }	t_params;
 
 typedef struct s_2d_point {
@@ -74,7 +76,6 @@ typedef struct s_trig {
 void	traverse_file(char *path, t_input *input);
 void	convert_input(int file_fd, t_input *input);
 void	get_updated_co_ordinates(t_data *img);
-void	assign_angles(t_params params, t_trig *z);
 
 /*	Drawing functions	*/
 void	draw_stuff(char *title, t_input *input);
@@ -84,5 +85,8 @@ void	draw_line(t_point p1, t_point p2, t_data *img);
 
 /*	Error functions		*/
 void	ft_perror_and_exit(char	*error_string, int exit_id);
+
+/*	FREE FREE FREE		*/
+void	free_data(t_data *img);
 
 #endif

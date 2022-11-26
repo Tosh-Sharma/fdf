@@ -6,48 +6,44 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:12:49 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/26 02:42:21 by tsharma          ###   ########.fr       */
+/*   Updated: 2022/11/26 21:45:56 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-void	free_data(t_data *img)
+void	zoom_zoom_zoom(int keycode, t_data *img)
 {
-	int	i;
-
-	mlx_destroy_image(img->mlx, img->img);
-	mlx_destroy_window(img->mlx, img->mlx_win);
-	i = 0;
-	while (i < img->input->row_count)
-	{
-		free(img->input->map[i]);
-		free(img->map[i]);
-		i++;
-	}
-	free(img->input->map);
-	free(img->map);
-	exit(1);
+	if (keycode == 82)
+		img->params.zoom -= 50 / (img->input->column_count
+				+ img->input->row_count);
+	else if (keycode == 87)
+		img->params.zoom += 50 / (img->input->column_count
+				+ img->input->row_count);
 }
 
-// put_pixel(&img, x * 15, y * 15, 0x00FF0000);
-void	put_pixel(t_data *data, int x, int y, int color)
+// 124 is right. 123 is left.
+// 126 is up. 125 is down.
+void	translate_it(int keycode, t_data *img)
 {
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length
-			+ x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	if (keycode == 123)
+		img->params.zero_x -= 30;
+	else if (keycode == 124)
+		img->params.zero_x += 30;
+	else if (keycode == 125)
+		img->params.zero_y += 30;
+	else if (keycode == 126)
+		img->params.zero_y -= 30;
 }
 
 int	key_hook(int keycode, t_data *img)
 {
-	if (keycode == 53)
+	if (keycode == 124 || keycode == 123 || keycode == 126 || keycode == 125)
+		translate_it(keycode, img);
+	else if (keycode == 53)
 		free_data(img);
-	if (keycode == 82)
-		img->params.zoom -= 1;
-	else if (keycode == 87)
-		img->params.zoom += 1;
+	else if (keycode == 82 || keycode == 87)
+		zoom_zoom_zoom(keycode, img);
 	else if (keycode == 91)
 		img->params.beta += (M_PI / 18);
 	else if (keycode == 84)
@@ -67,6 +63,16 @@ int	key_hook(int keycode, t_data *img)
 	return (0);
 }
 
+void	initialize_params(t_data *img)
+{
+	img->params.zoom = 200 / (img->input->row_count * img->input->column_count);
+	img->params.alpha = 0.0;
+	img->params.beta = 0.0;
+	img->params.gamma = 0.0;
+	img->params.zero_x = WIN_WIDTH / 2;
+	img->params.zero_y = WIN_HEIGHT / 10;
+}
+
 // TODO: Display text on screen.
 // Handle rotation and other stuff.
 void	draw_stuff(char *title, t_input *input)
@@ -80,10 +86,7 @@ void	draw_stuff(char *title, t_input *input)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
 	img.input = input;
-	img.params.zoom = 7;
-	img.params.alpha = 0.0;
-	img.params.beta = 0.0;
-	img.params.gamma = 0.0;
+	initialize_params(&img);
 	img.map = (t_point **)malloc(sizeof(t_point *) * input->row_count);
 	i = -1;
 	while (++i < input->row_count)
