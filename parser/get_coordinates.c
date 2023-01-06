@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:33:38 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/26 22:58:42 by tsharma          ###   ########.fr       */
+/*   Updated: 2023/01/06 22:54:09 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	put_pixel(t_data *data, int x, int y, int color)
 		flag = 1;
 		printf("(x, y) is (%d,%d)\n", x, y);
 	}
-	printf("x, y is %d\n");
 	if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGHT)
 	{
 		printf("x and y are %d and %d\n", x, y);
@@ -73,36 +72,37 @@ void	put_pixel(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	put_line(t_line	*line, t_data *img)
+double	ft_sign(double x)
 {
-	double	pixel_x;
-	double	pixel_y;
-
-	pixel_x = line->start.x;
-	pixel_y = line->start.y;
-	while (line->pixels > 0)
-	{
-		put_pixel(img, pixel_x, pixel_y, 0x00FF0000);
-		pixel_x += line->delta_y;
-		pixel_y += line->delta_y;
-		--line->pixels;
-	}
+	if (x >= 0)
+		return (1);
+	else
+		return (-1);
 }
 
 void	draw_line(t_point p1, t_point p2, t_data *img)
 {
-	put_pixel(img, p1.x, p1.y, 0x00FF0000);
-	put_pixel(img, (p1.x + p2.x) / 2, (p1.y + p2.y) / 2, 0x00FFFFFF);
-	put_pixel(img, p2.x, p2.y, 0x00FF0000);
-	// t_line	line;
+	t_point	delta;
+	t_point	p;
+	t_point	sign;
+	double	step;
 
-	// line.delta_x = p2.x - p1.x;
-	// line.delta_y = p2.y - p1.y;
-	// line.pixels = sqrt((line.delta_x * line.delta_x)
-	// 		+ (line.delta_y * line.delta_y));
-	// line.delta_x /= line.pixels;
-	// line.delta_y /= line.pixels;
-	// line.start = p1;
-	// line.end = p2;
-	// put_line(&line, img);
+	p.x = p1.x;
+	p.y = p1.y;
+	sign.x = ft_sign(p2.x - p1.x);
+	sign.y = ft_sign(p2.y - p1.y);
+	delta.x = p2.x - p1.x;
+	delta.y = p2.y - p1.y;
+	if (fabs(delta.x) > fabs(delta.y))
+		step = fabs(delta.x);
+	else
+		step = fabs(delta.y);
+	delta.x = delta.x / step;
+	delta.y = delta.y / step;
+	while (sign.x == ft_sign(p2.x - p.x) && sign.y == ft_sign(p2.y - p.y))
+	{
+		put_pixel(img, p.x, p.y, 0x00FF0000);
+		p.x += delta.x;
+		p.y += delta.y;
+	}
 }
