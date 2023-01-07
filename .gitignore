@@ -5,5 +5,3 @@ libft/libft.a
 *.a
 .vscode
 .out
-#TODO: Find out if this is to be commited or nah
-# mlx/

@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:12:49 by tsharma           #+#    #+#             */
-/*   Updated: 2023/01/06 23:30:15 by tsharma          ###   ########.fr       */
+/*   Updated: 2023/01/07 04:50:42 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	initialize_params(t_data *img)
 }
 
 // TODO: Display text on screen.
-// Handle rotation and other stuff.
 void	draw_stuff(char *title, t_input *input)
 {
 	t_data		img;

@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 20:13:10 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/12 13:18:33 by tsharma          ###   ########.fr       */
+/*   Updated: 2023/01/07 04:29:50 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 // GET_NEXT_LINE
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 500
+#  define BUFFER_SIZE 1
 # endif
 
 int		ft_strchr_int(const char *s, int c);

@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:33:38 by tsharma           #+#    #+#             */
-/*   Updated: 2023/01/06 22:54:09 by tsharma          ###   ########.fr       */
+/*   Updated: 2023/01/06 23:56:00 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,9 @@ void	put_pixel(t_data *data, int x, int y, int color)
 	static int	flag = 0;
 
 	if (flag == 0)
-	{
 		flag = 1;
-		printf("(x, y) is (%d,%d)\n", x, y);
-	}
 	if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGHT)
-	{
-		printf("x and y are %d and %d\n", x, y);
 		return ;
-	}
 	dst = data->addr + (y * data->line_length
 			+ x * (data->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;

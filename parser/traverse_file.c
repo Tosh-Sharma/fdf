@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 14:16:26 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/26 02:40:59 by tsharma          ###   ########.fr       */
+/*   Updated: 2023/01/07 05:54:14 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,37 +59,38 @@ int	get_initial_count(int file_fd)
 
 	line = get_next_line(file_fd);
 	eliminate_new_line = ft_split(line, '\n');
+	free(line);
 	if (eliminate_new_line[0] == NULL)
 	{
 		free_strings(eliminate_new_line);
-		ft_perror_and_exit("What a useless input", 0);
+		ft_perror_and_exit("Are there any lines in code?", 0);
 	}
 	numbers = ft_split(eliminate_new_line[0], ' ');
 	free_strings(eliminate_new_line);
 	column_count = 0;
 	while (numbers[column_count] != NULL)
 		column_count++;
-	free(line);
 	free_strings(numbers);
 	return (column_count);
 }
 
-int	get_number_of_columns(int file_fd, int row_count)
+int	get_number_of_columns(int file_fd, int row_count, int *i)
 {
-	int		i;
 	int		n;
 	int		column_count;
 	char	*line;
+	char	**line_without_nl;
 	char	**numbers;
 
 	column_count = get_initial_count(file_fd);
-	i = 2;
-	while (i < row_count)
+	while (++(*i) < row_count)
 	{
 		line = get_next_line(file_fd);
+		line_without_nl = ft_split(line, '\n');
+		free(line_without_nl[1]);
 		if (line == NULL)
 			break ;
-		numbers = ft_split(line, ' ');
+		numbers = ft_split(line_without_nl[0], ' ');
 		n = 0;
 		while (numbers[n] != NULL)
 			n++;
@@ -97,19 +98,21 @@ int	get_number_of_columns(int file_fd, int row_count)
 			ft_perror_and_exit("File format is bad.", 0);
 		free(line);
 		free_strings(numbers);
-		i++;
+		free_strings(line_without_nl);
 	}
-	close(file_fd);
 	return (column_count);
 }
 
 void	traverse_file(char *path, t_input *input)
 {
 	int		file_fd;
+	int		i;
 
+	i = 0;
 	input->row_count = get_number_of_rows(path);
 	file_fd = open(path, O_RDONLY);
-	input->column_count = get_number_of_columns(file_fd, input->row_count);
+	input->column_count = get_number_of_columns(file_fd, input->row_count, &i);
+	close(file_fd);
 	file_fd = open(path, O_RDONLY);
 	convert_input(file_fd, input);
 	close(file_fd);

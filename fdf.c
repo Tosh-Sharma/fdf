@@ -6,11 +6,21 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 09:14:48 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/24 22:05:38 by tsharma          ###   ########.fr       */
+/*   Updated: 2023/01/07 00:07:21 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+int	file_extension_check(char *str)
+{
+	int	n;
+
+	n = ft_strlen(str);
+	if (str[n - 3] == 'f' && str[n - 2] == 'd' && str[n - 1] == 'f')
+		return (1);
+	return (0);
+}
 
 // The way to solve is as follows.
 // 1. Read file, ensure file is correctly parsed and not stupid.
@@ -29,14 +39,21 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		perror("You can only pass one argument. \
-			Don't waste time testing stupid stuff.");
+		perror("You can only pass one argument.");
 		exit(0);
 	}
 	else
 	{
-		traverse_file(argv[1], &input);
-		draw_stuff(argv[1], &input);
+		if (file_extension_check(argv[1]) == 1)
+		{
+			traverse_file(argv[1], &input);
+			draw_stuff(argv[1], &input);
+		}
+		else
+		{
+			perror("File extension is incorrect\n");
+			exit(0);
+		}
 	}
 	return (0);
 }
