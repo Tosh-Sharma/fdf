@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 11:04:40 by tsharma           #+#    #+#             */
-/*   Updated: 2022/11/26 19:35:29 by tsharma          ###   ########.fr       */
+/*   Updated: 2023/01/07 06:39:32 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	create_mesh(t_data *img);
 void	draw_line(t_point p1, t_point p2, t_data *img);
 
 /*	Error functions		*/
+int		exit_hook(t_data *img);
 void	ft_perror_and_exit(char	*error_string, int exit_id);
 
 /*	FREE FREE FREE		*/

@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:12:49 by tsharma           #+#    #+#             */
-/*   Updated: 2023/01/07 04:50:42 by tsharma          ###   ########.fr       */
+/*   Updated: 2023/01/07 06:47:15 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ void	draw_stuff(char *title, t_input *input)
 	create_mesh(&img);
 	mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
 	mlx_key_hook(img.mlx_win, &key_hook, &img);
+	mlx_hook(img.mlx_win, 17, 0, &exit_hook, &img);
 	mlx_loop(img.mlx);
 }
