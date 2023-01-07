@@ -6,7 +6,7 @@
 /*   By: tsharma <tsharma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 16:33:38 by tsharma           #+#    #+#             */
-/*   Updated: 2023/01/06 23:56:00 by tsharma          ###   ########.fr       */
+/*   Updated: 2023/01/07 10:36:50 by tsharma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	apply_rotation(t_data *img, t_point **map, t_trig z)
 			map[i][j].y = (((i * (z.cos_b * z.cos_g)) + (j * (z.sin_a * z.sin_b
 								* z.sin_g + z.cos_a * z.cos_g)) + (
 							img->input->map[i][j] * ((z.cos_a * z.sin_b
-									* z.sin_g) - (z.sin_a * z.sin_g))))
+									* z.sin_g) - (z.sin_a * z.cos_g))))
 					+ img->params.zero_y) * img->params.zoom;
 		}
 	}
